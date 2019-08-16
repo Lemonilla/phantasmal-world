@@ -27,6 +27,7 @@ opcodes:
         Often used to check a register every frame. Make sure to yield control with sync when looping.
     params:
       - type: instruction_label
+        name: function
 
   - code: 0x05
     mnemonic: va_start
@@ -49,16 +50,19 @@ opcodes:
         Called after initializing the argument list with va_start and pushing arguments onto the stack with arg_push* instructions. Make sure to call va_end afterwards.
     params:
       - type: instruction_label
+        name: function
 
   - code: 0x08
     mnemonic: let
     doc: Sets the first register's value to second one's value.
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: dword
             access: write
       - type: reg_tup_ref
+        name: valReg
         reg_tup:
           - type: dword
             access: read
@@ -68,6 +72,7 @@ opcodes:
     doc: Sets a register to the given value.
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: dword
             access: write
@@ -78,6 +83,7 @@ opcodes:
     doc: Sets a register to the given value.
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: byte
             access: write
@@ -88,6 +94,7 @@ opcodes:
     doc: Sets a register to the given value.
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: word
             access: write
@@ -98,10 +105,12 @@ opcodes:
     doc: Sets the first register to the memory address of the second register. Not used by Sega.
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: pointer
             access: write
       - type: reg_tup_ref
+        name: targetReg
         reg_tup:
           - type: any
             access: read
@@ -111,16 +120,19 @@ opcodes:
     doc: Sets a register to the memory address of the given label. Not used by Sega.
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: pointer
             access: write
       - type: label
+        name: label
 
   - code: 0x10
     mnemonic: set
     doc: Sets a register to 1.
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: dword
             access: write
@@ -130,6 +142,7 @@ opcodes:
     doc: Sets a register to 0.
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: dword
             access: write
@@ -139,6 +152,7 @@ opcodes:
     doc: Sets a register to 1 if its current value is 0, otherwise sets it to 0.
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: dword
             access: read_write
@@ -147,28 +161,34 @@ opcodes:
     mnemonic: gset
     params:
       - type: word
+        name: index
 
   - code: 0x14
     mnemonic: gclear
     params:
       - type: word
+        name: index
 
   - code: 0x15
     mnemonic: grev
     params:
       - type: word
+        name: index
 
   - code: 0x16
     mnemonic: glet
     params:
       - type: word
+        name: index
 
   - code: 0x17
     mnemonic: gget
     doc: Sets a register to value of the given flag.
     params:
       - type: word
+        name: index
       - type: reg_tup_ref
+        name: valReg
         reg_tup:
           - type: word
             access: write
@@ -177,10 +197,12 @@ opcodes:
     mnemonic: add
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: dword
             access: write
       - type: reg_tup_ref
+        name: valReg
         reg_tup:
           - type: dword
             access: read
@@ -189,19 +211,23 @@ opcodes:
     mnemonic: addi
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: dword
             access: write
       - type: dword
+        name: value
 
   - code: 0x1a
     mnemonic: sub
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: dword
             access: write
       - type: reg_tup_ref
+        name: valReg
         reg_tup:
           - type: dword
             access: read
@@ -210,19 +236,23 @@ opcodes:
     mnemonic: subi
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: dword
             access: write
       - type: dword
+        name: value
 
   - code: 0x1c
     mnemonic: mul
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: dword
             access: write
       - type: reg_tup_ref
+        name: valReg
         reg_tup:
           - type: dword
             access: read
@@ -231,19 +261,23 @@ opcodes:
     mnemonic: muli
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: dword
             access: write
       - type: dword
+        name: value
 
   - code: 0x1e
     mnemonic: div
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: dword
             access: write
       - type: reg_tup_ref
+        name: valReg
         reg_tup:
           - type: dword
             access: read
@@ -252,19 +286,23 @@ opcodes:
     mnemonic: divi
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: dword
             access: write
       - type: dword
+        name: value
 
   - code: 0x20
     mnemonic: and
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: dword
             access: write
       - type: reg_tup_ref
+        name: valReg
         reg_tup:
           - type: dword
             access: read
@@ -273,19 +311,23 @@ opcodes:
     mnemonic: andi
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: dword
             access: write
       - type: dword
+        name: value
 
   - code: 0x22
     mnemonic: or
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: dword
             access: write
       - type: reg_tup_ref
+        name: valReg
         reg_tup:
           - type: dword
             access: read
@@ -294,19 +336,23 @@ opcodes:
     mnemonic: ori
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: dword
             access: write
       - type: dword
+        name: value
 
   - code: 0x24
     mnemonic: xor
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: dword
             access: write
       - type: reg_tup_ref
+        name: valReg
         reg_tup:
           - type: dword
             access: read
@@ -315,19 +361,23 @@ opcodes:
     mnemonic: xori
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: dword
             access: write
       - type: dword
+        name: value
 
   - code: 0x26
     mnemonic: mod
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: dword
             access: write
       - type: reg_tup_ref
+        name: valReg
         reg_tup:
           - type: dword
             access: read
@@ -336,47 +386,58 @@ opcodes:
     mnemonic: modi
     params:
       - type: reg_tup_ref
+        name: destReg
         reg_tup:
           - type: dword
             access: write
       - type: dword
+        name: value
 
   - code: 0x28
     mnemonic: jmp
     params:
       - type: instruction_label
+        name: lebel
 
   - code: 0x29
     mnemonic: call
     params:
       - type: instruction_label
+        name: label
 
   - code: 0x2a
     mnemonic: jmp_on
     params:
       - type: instruction_label
+        name: label
       - type: reg_ref_var
+        name: conditions
         access: read
 
   - code: 0x2b
     mnemonic: jmp_off
     params:
       - type: instruction_label
+        name: label
       - type: reg_ref_var
+        name: conditions
         access: read
 
   - code: 0x2c
     mnemonic: jmp_=
     params:
       - type: reg_tup_ref
+        name: value1
         reg_tup:
           - type: any
             access: read
       - type: reg_tup_ref
+        name: value2
         reg_tup:
           - type: any
             access: read
       - type: instruction_label
+        name: label
 
   - code: 0x2d
     mnemonic: jmpi_=
